@@ -1,5 +1,6 @@
 {{ "<!-- Navigation -->" | safeHTML }}
-<nav class="navbar navbar-default navbar-fixed-top">
+<!-- navbar-fixed-top clase que le saqué al navbar -->
+<nav class="navbar navbar-default">
     <div class="container">
         {{ "<!-- Brand and toggle get grouped for better mobile display -->" | safeHTML }}
         <div class="navbar-header page-scroll">
@@ -18,7 +19,10 @@
                     <a href="#page-top"></a>
                 </li>
                 <li class="page-scroll">
-                    <a href="#portfolio">{{ with .Site.Params.portfolio.title }}{{ . }}{{ end }}</a>
+                    <a href="files/{{ with .Site.Params.resume.name }}{{ .}}{{ else }}resume.pdf{{ end }}">Resume</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#resume">{{ with .Site.Params.portfolio.title }}{{ . }}{{ end }}</a>
                 </li>
                 <li class="page-scroll">
                     <a href="#about">{{ with .Site.Params.about.title }}{{ . }}{{ end }}</a>
