@@ -15,3 +15,9 @@
 {{ range .Site.Params.custom_js }}
 <script src="{{ . | absURL }}"></script>
 {{ end }}
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

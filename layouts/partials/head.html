@@ -8,9 +8,9 @@
 {{ "<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->" | safeHTML }}
 <link href="{{ .Site.BaseURL }}css/bootstrap.min.css" rel="stylesheet">
 {{ "<!-- Custom CSS -->" | safeHTML }}
-<link href="css/freelancer.css" rel="stylesheet">
+<link href="/css/freelancer.css" rel="stylesheet">
 {{ range .Site.Params.custom_css }}
-<link rel="stylesheet" href="{{ . | absURL }}">
+<link rel="stylesheet" href="{{ absURL }}">
 {{ end }}
 {{ "<!-- Custom Fonts -->" | safeHTML }}
 <link href="{{ .Site.BaseURL }}css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">

@@ -2,26 +2,25 @@
 <section class="success" id="about">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>{{ with .Site.Params.about.title }}{{.}}{{ end }}</h2>
-                <hr class="star-light">
+            <div class="col-lg-3 col-lg">
+                <img class="img-responsive" src="img/{{ with .Site.Params.header.image }}{{ . }}{{ else }}profile.png{{ end }}" alt="">
+            </div>
+            <div class="col-lg-9 col-lg">
+                <div class="col-lg-12 text-center">
+                    <h2>{{ with .Site.Params.about.title }}{{.}}{{ end }}</h2>
+                    <hr class="star-light">
+                </div>
+                <p>{{ with .Site.Params.about.left }}{{ . | markdownify }}{{ end }}</p>
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <a href="files/{{ with .Site.Params.resume.name }}{{ .}}{{ else }}resume.pdf{{ end }}"
+                        class="btn btn-lg btn-outline">
+                        <i class="fa fa-{{ with .Site.Params.about.button.icon }}{{.}}{{end}}"></i>
+                        {{ with .Site.Params.about.button.text }}{{ . }}{{ end }}
+                    </a>
+                </div>
             </div>
         </div>
-    <div class="row">
-        <!-- <div class="col-lg-3">
-            <img class="img-responsive" src="img/{{ with .Site.Params.header.image }}{{ . }}{{ else }}profile.png{{ end }}" alt="">
-        </div> -->
-        <div class="col-lg-8 col-lg-offset-3">
-            <p>{{ with .Site.Params.about.left }}{{ . | markdownify }}{{ end }}</p>
-        </div>
-        <!-- <div class="col-lg-4">
-            <p>{{ with .Site.Params.about.right }}{{ . | markdownify }}{{ end }}</p>
-        </div> -->
-        <div class="col-lg-8 col-lg-offset-2 text-center">
-            <a href="{{ with .Site.Params.about.button.link }}{{.}}{{ end }}" class="btn btn-lg btn-outline">
-                <i class="fa fa-{{ with .Site.Params.about.button.icon }}{{.}}{{end}}"></i> {{ with .Site.Params.about.button.text }}{{ . }}{{ end }}
-            </a>
-        </div>
-        </div>
     </div>
+    
 </section>
+
