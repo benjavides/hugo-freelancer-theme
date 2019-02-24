@@ -8,19 +8,22 @@
             </div>
         </div>
         <div class="row">
-            {{ range sort $.Site.Data.projects "modalID" "desc"}}
+            <!-- Mostramos solo 9 páginas que tengan el parametro display en true y las ordenamos por modalID descendiente -->
+            {{ $paginator := .Paginate (where .Pages "Params.display" true) 9 }}
+            {{ range (.Paginator.Pages.ByParam "modalID").Reverse}}
             <div class="col-sm-4 portfolio-item">
-                <a href="#portfolioModal{{ .modalID }}" class="portfolio-link" data-toggle="modal">
+                <a href="{{ .URL }}" class="portfolio-link" data-toggle="modal">
                     <div class="caption">
                         <div class="caption-content">
                             <i class="fa fa-search-plus fa-3x"></i>
                         </div>
                     </div>
-                    <img src="img/portfolio/{{ .img }}" class="img-responsive">
+                    <img src="/img/portfolio/{{ .Params.img }}" class="img-responsive">
                 </a>
-                <h4 class="text-center">{{ .title }}</h4>
+                <h4 class="text-center">{{ .Params.title }}</h4>
             </div>
             {{ end }}
         </div>
     </div>
+    <div class="text-center">{{ partial "pagination.html" . }}</div>
 </section>
