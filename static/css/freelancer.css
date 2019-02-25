@@ -154,6 +154,18 @@ hr.star-primary:after {
     border: solid 2px var(--color-tercery);
 }
 
+#profile-picture-container {
+    /* width: 30vw; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#profile-picture{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
 
 .pagination>.active>a,
 .pagination>.active>span,
