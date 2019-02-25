@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="row">
-                {{ range ((.Paginator 9 ).Pages.ByParam "modalID").Reverse}}
+                {{ range (.Pages.ByParam "modalID").Reverse}}
                 {{ $currentPage := .}}
                 <div class="col-sm-4 portfolio-item">
                     <a href="{{ .URL}}" class="portfolio-link" data-toggle="modal">

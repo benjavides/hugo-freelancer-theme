@@ -9,8 +9,8 @@
         </div>
         <div class="row">
             <!-- Mostramos solo 9 páginas que tengan el parametro display en true y las ordenamos por modalID descendiente -->
-            {{ $paginator := .Paginate (where .Pages "Params.display" true) 9 }}
-            {{ range (.Paginator.Pages.ByParam "modalID").Reverse}}
+            {{ $paginator := .Paginate (where ((.Pages.ByParam "modalID").Reverse) "Params.display" true) 9 }}
+            {{ range .Paginator.Pages}}
             <div class="col-sm-4 portfolio-item">
                 <a href="{{ .URL }}" class="portfolio-link" data-toggle="modal">
                     <div class="caption">
