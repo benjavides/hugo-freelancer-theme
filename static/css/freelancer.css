@@ -64,7 +64,7 @@ a.active {
     color: var(--color-links);
 }
 /* External links */
-a[href*="//"]:not([href*="benjavides"],[href*="localhost"]):not(.btn-social){
+a[href*="//"]:not([href*="benjavides"]):not(.btn-social):not(.navbar-brand){
     /* external link styles, use :before or :after if you want! */
     color: var(--color-main);
 }

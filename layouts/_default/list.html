@@ -10,16 +10,22 @@
             </div>
             <div class="row">
                 {{ range ((.Paginator 9 ).Pages.ByParam "modalID").Reverse}}
+                {{ $currentPage := .}}
                 <div class="col-sm-4 portfolio-item">
                     <a href="{{ .URL}}" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
+                        {{with .Params.img}}
+                            <div class="caption">
+                                <div class="caption-content">
+                                    <i class="fa fa-search-plus fa-3x"></i>
+                                </div>
                             </div>
-                        </div>
-                        <img src="/img/portfolio/{{ .Params.img }}" class="img-responsive">
+                            <img src="/img/portfolio/{{ . }}" class="img-responsive">
                     </a>
-                    <h4 class="text-center">{{ .Params.title }}</h4>
+                            <h4 class="text-center">{{ $currentPage.Title }}</h4>
+                        {{else}}
+                            <h3 class="text-center">{{ .Title }}</h3>
+                    </a>
+                        {{ end }}
                 </div>
                 {{ end }}
             </div>
