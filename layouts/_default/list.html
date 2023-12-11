@@ -12,7 +12,7 @@
                 {{ range (.Pages.ByParam "modalID").Reverse}}
                 {{ $currentPage := .}}
                 <div class="col-sm-4 portfolio-item">
-                    <a href="{{ .URL}}" class="portfolio-link" data-toggle="modal">
+                    <a href="{{ .Permalink}}" class="portfolio-link" data-toggle="modal">
                         {{with .Params.img}}
                             <div class="caption">
                                 <div class="caption-content">
