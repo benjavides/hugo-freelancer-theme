@@ -14,7 +14,7 @@
                     {{ end }}
                     <hr class="star-primary">
                     <ul class="list-inline item-details">
-                        <li>{{ with $.Site.Params.portfolio.modal.date }}{{.}}{{ end }}:
+                        <li>{{ with $.Site.Params.portfolio.date }}{{.}}{{ end }}:
                             <strong>{{ .Params.fecha }}</strong>
                         </li>
                         {{ if not (eq .Params.client "") }}
