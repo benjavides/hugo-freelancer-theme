@@ -8,12 +8,28 @@
 $(function() {
     $('.page-scroll a').bind('click', function(event) {
         var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
+        var href = $anchor.attr('href');
+        var hash = href.split('#')[1];
+
+        // Check if the current page is the language-specific root page
+        var currentPath = window.location.pathname;
+        var isRootPage = /^\/[a-z]{2}\/?$/.test(currentPath);
+        
+        if (isRootPage) {
+            if (hash) {
+                // If the hash exists, prevent default and scroll smoothly
+                $('html, body').stop().animate({
+                    scrollTop: $('#' + hash).offset().top
+                }, 1500, 'easeInOutExpo');
+                event.preventDefault();
+            }
+        } else {
+            // If not on the root page, navigate to the target href
+            window.location.href = href;
+        }
     });
 });
+
 
 // Floating label headings for the contact form
 $(function() {

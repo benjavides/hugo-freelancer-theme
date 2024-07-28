@@ -43,6 +43,37 @@
     padding: 15px 18px;
 }
 
+/* Ensure the dropdown menu matches the alignment of other navbar items */
+.navbar .dropdown-toggle {
+    display: inline-block;
+    padding: 19.5px 15px; /* Ensure this matches the padding of other navbar items */
+    line-height: 20px; /* Ensure this matches the line-height of other navbar items */
+    vertical-align: middle; /* Aligns the dropdown toggle in the middle */
+}
+
+.navbar .dropdown-menu {
+    min-width: auto; /* Override the default minimum width */
+    width: auto; /* Let the width be determined by the content */
+    padding: 0; /* Remove default padding */
+    top: 100%; /* Position the dropdown menu below the toggle */
+    margin-top: 0; /* Remove margin above the dropdown */
+}
+
+.navbar .dropdown-menu a {
+    padding: 10px 22px; /* Adjust padding as needed */
+}
+
+.navbar .dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.navbar .dropdown-toggle .caret {
+    margin-left: 5px;
+    margin-top: 2px; /* Adjust the vertical alignment */
+}
+
+
 body {
     overflow-x: hidden;
 }
@@ -64,7 +95,7 @@ a.active {
     color: var(--color-links);
 }
 /* External links */
-a[href*="//"]:not([href*="benjavides"]):not(.btn-social):not(.navbar-brand){
+a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social):not(.navbar-brand){
     /* external link styles, use :before or :after if you want! */
     color: var(--color-main);
 }

@@ -3,7 +3,9 @@
     <div class="container project-container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <button type="button" class="btn btn-default" onclick="goBack()"><i class="fa fa-arrow-left"></i></button>
+                <a href="{{ .Site.BaseURL }}{{ .Site.Language.Lang }}" class="btn btn-default">
+                    <i class="fa fa-arrow-left"></i>
+                </a>
                 <div class="modal-body">
                     {{ with .Params.fullTitle}}
                         <h2 class="project-title text-center">{{humanize .}}</h2>
@@ -20,16 +22,17 @@
                             <strong><a href="{{ .Params.clientLink }}" target="_blank">{{ .Params.client }}</a></strong>
                         </li>
                         {{ end }}
-                        <li>{{ with $.Site.Params.portfolio.modal.category }}{{.}}{{ end }}:
+                        <li>{{ with $.Site.Language.Params.portfolio.modal.category }}{{ . }}{{ end }}:
+                            {{ $base := .Site.BaseURL }}
+                            {{ $lang := .Site.Language.Lang }}
                             {{ range $number, $name := .Params.categories }}
-                            <strong><a href="{{ $.Site.BaseURL }}categories/{{ $name | urlize | lower  }}">{{humanize $name }}</a></strong>
+                                <strong><a href="{{ $base }}{{ $lang }}/categories/{{ $name | urlize | lower }}">{{ humanize $name }}</a></strong>
                             {{ end }}
-                            <!-- <strong>{{humanize (delimit .Params.categories ", ") }}</strong> -->
                         </li>
                         <br>
-                        <li>Tags:
+                        <li>{{ with $.Site.Language.Params.portfolio.modal.tags }}{{.}}{{ end }}:
                             {{ range $number, $name := .Params.tags }}
-                            <a href="{{ $.Site.BaseURL }}tags/{{ $name | urlize | lower  }}">#{{ $name }}</a>
+                                <a href="{{ $base }}{{ $lang }}/tags/{{ $name | urlize | lower }}">#{{ $name }}</a>
                             {{ end }}
                         </li>
                     </ul>
@@ -37,8 +40,6 @@
                         <p> {{ .Params.description | markdownify }}</p>
                     </div>
                     <div class="project-content">{{ .Content }}</div>
-                    
-                </div>
                 </div>
             </div>
         </div>

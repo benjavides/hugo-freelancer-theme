@@ -14,12 +14,9 @@
                 </div>
                 <p>{{ with .Site.Params.about.left }}{{ . | markdownify }}{{ end }}</p>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    
-                    <!-- <a href="files/{{ with .Site.Params.resume.name }}{{ .}}{{ else }}resume.pdf{{ end }}"
-                        class="btn btn-lg btn-outline"> To download CV-->
-                    <a href="https://registry.jsonresume.org/benjavides" class="btn btn-lg btn-outline">
-                        <i class="fa fa-{{ with .Site.Params.about.button.icon }}{{.}}{{end}}"></i>
-                        {{ with .Site.Params.about.button.text }}{{ . }}{{ end }}
+                    <!-- To download CV -->
+                    <a href="{{ with .Site.Params.about.button.link }}{{ . }}{{ else }}https://registry.jsonresume.org/benjavides{{ end }}" class="btn btn-lg btn-outline">
+                        {{ .Site.Params.about.button.text }}
                     </a>
                 </div>
             </div>
