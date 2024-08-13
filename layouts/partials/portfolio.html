@@ -17,7 +17,10 @@
                             <i class="fa fa-search-plus fa-3x"></i>
                         </div>
                     </div>
-                    <img src="/img/portfolio/{{ .Params.img }}" class="img-responsive" alt="{{ .Title }}">
+                    {{ $image := resources.Get (printf "/img/portfolio/%s" .Params.img) }}
+                    {{ $image := $image.Resize "400x289" }}
+                    <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Title }}" class="img-responsive">
+                    <!-- <img src="/img/portfolio/{{ .Params.img }}" class="img-responsive" alt="{{ .Title }}"> -->
                 </a>
                 <h4 class="text-center">{{ .Title }}</h4>
             </div>
@@ -26,7 +29,3 @@
     </div>
     <div class="text-center">{{ partial "pagination.html" $paginator }}</div>
 </section>
-
-
-
-

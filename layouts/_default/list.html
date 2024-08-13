@@ -19,7 +19,9 @@
                                     <i class="fa fa-search-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img src="/img/portfolio/{{ . }}" class="img-responsive">
+                            {{ $image := resources.Get (printf "/img/portfolio/%s" .) }}
+                            {{ $image := $image.Resize "400x289" }}
+                            <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" class="img-responsive">
                     </a>
                             <h4 class="text-center">{{ $currentPage.Title }}</h4>
                         {{else}}
