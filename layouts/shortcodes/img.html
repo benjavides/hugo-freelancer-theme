@@ -6,7 +6,6 @@
 {{- $holder := default "GIP" (.Get "holder") -}}
 {{- $phn := default false (.Get "phn") -}}
 {{- $hint := default "photo" (.Get "hint") -}}
-{{- /* ^^ applicable only to webp: https://gohugo.io/content-management/image-processing/#hint */ -}}
 {{- $filter := default "box" (.Get "filter") -}}
 {{- $simple := default false (.Get "simple") -}}
 {{- $rounds := default false (.Get "rounds") -}}
@@ -17,17 +16,9 @@
 	{{- $divClass = print $divClass " bigImgDiv" -}}
 	{{- if $rounds -}}
 		{{- $divClass = print $divClass " rounded-bkgd" -}}
-		{{/* For LQIPs behind rounded imgs (e.g., screen caps). */}}
 	{{- end }}
 	{{- $divClass = print $divClass " imgB-" $imgBd5 "-" $holder -}}
-	{{/*
-		The `imgB-`[hash]-GIP` class is
-		generated in a `head` partial;
-		here, we need only get the class's name,
-		using the same method as in that partial
-		(md5-ing the image file name).
-	*/}}
-{{- else -}}{{/* if $phn */}}
+{{- else -}}
 	{{- $divClass = print $divClass " bg-center" -}}
 {{- end -}}
 {{- $imgClass := "w-full animate-fade shadow" -}}
@@ -38,12 +29,14 @@
 
 {{- $image := resources.Get $src -}}
 {{- if $image -}}
-	{{ with $image }}
-		{{- $imgRsc := . -}}
+	{{- $imgRsc := $image -}}
+	{{- if eq (lower $imgRsc.MediaType.SubType) "gif" -}}
+		<!-- Skip all processing for GIFs and use the original image -->
+		<img class="{{ $imgClass }}" src="{{ $imgRsc.RelPermalink }}" width="{{ $imgRsc.Width }}" height="{{ $imgRsc.Height }}" alt="{{ $alt }}" title="{{ $alt }}" loading="lazy" data-pagefind-ignore />
+	{{- else -}}
+		<!-- Process non-GIF images -->
 		{{- $actualImg := $imgRsc.Process (print "resize 640x jpg " $filter) -}}
-		{{- if eq $simple false -}}
 		<div class="{{ $divClass }}" data-pagefind-ignore>
-		{{- end }}
 			<picture data-pagefind-ignore>
 				<source type="image/webp" srcset="
 				{{- with $respSizes -}}
@@ -63,9 +56,7 @@
 				{{- end -}}" sizes="{{ $dataSzes }}" />
 				<img class="h-auto{{ if eq $simple false }} {{ $imgClass }}{{ end }}" src="{{ $actualImg.RelPermalink }}" width="{{ $imgRsc.Width }}" height="{{ $imgRsc.Height }}" alt="{{ $alt }}" title="{{ $alt }}" loading="lazy" data-pagefind-ignore />
 			</picture>
-		{{- if eq $simple false -}}
 		</div>
-		{{- end -}}
 	{{- end -}}
 {{- else -}}
 	<p class="ctr legal"><em>Image unavailable.</em></p>

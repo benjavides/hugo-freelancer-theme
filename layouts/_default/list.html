@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             {{ $image := resources.Get (printf "/img/portfolio/%s" .) }}
-                            {{ $image := $image.Resize "400x289" }}
+                            {{ $image := $image.Resize "400x289 webp" }}
                             <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" class="img-responsive">
                     </a>
                             <h4 class="text-center">{{ $currentPage.Title }}</h4>

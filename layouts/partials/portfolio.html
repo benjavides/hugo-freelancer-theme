@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     {{ $image := resources.Get (printf "/img/portfolio/%s" .Params.img) }}
-                    {{ $image := $image.Resize "400x289" }}
+                    {{ $image := $image.Resize "400x289 webp" }}
                     <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Title }}" class="img-responsive">
                     <!-- <img src="/img/portfolio/{{ .Params.img }}" class="img-responsive" alt="{{ .Title }}"> -->
                 </a>
