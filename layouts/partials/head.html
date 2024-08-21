@@ -6,16 +6,28 @@
 {{ hugo.Generator }}
 <title>{{ .Site.Title }}</title>
 {{ "<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->" | safeHTML }}
-<link href="{{ .Site.BaseURL }}css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Minified Bootstrap CSS -->
+{{ $bootstrap := resources.Get "css/bootstrap.min.css" | minify | fingerprint }}
+<link href="{{ $bootstrap.Permalink }}" rel="stylesheet" integrity="{{ $bootstrap.Data.Integrity }}">
+
 {{ "<!-- Custom CSS -->" | safeHTML }}
-<link href="{{ .Site.BaseURL }}css/freelancer.css" rel="stylesheet">
+
+<!-- Minified Custom CSS -->
+{{ $freelancer := resources.Get "css/freelancer.css" | minify | fingerprint }}
+<link href="{{ $freelancer.Permalink }}" rel="stylesheet" integrity="{{ $freelancer.Data.Integrity }}">
+
+<!-- Custom CSS from Params (Minified) -->
 {{ range .Site.Params.custom_css }}
-<link rel="stylesheet" href="{{ absURL }}">
+    {{ $customCSS := resources.Get . | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $customCSS.Permalink }}" integrity="{{ $customCSS.Data.Integrity }}">
 {{ end }}
+
 {{ "<!-- Custom Fonts -->" | safeHTML }}
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
 {{ "<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->" | safeHTML }}
 {{ "<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->" | safeHTML }}
 {{ "<!--[if lt IE 9]>" | safeHTML }}
