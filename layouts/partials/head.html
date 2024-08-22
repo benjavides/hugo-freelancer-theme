@@ -17,19 +17,19 @@
 <link rel="preload" href="{{ $freelancer.Permalink }}" as="style">
 
 <!-- Minified Bootstrap CSS -->
-<link href="{{ $bootstrap.Permalink }}" rel="stylesheet" integrity="{{ $bootstrap.Data.Integrity }}">
+<link href="{{ $bootstrap.Permalink }}" rel="stylesheet">
 
 <!-- Minified Custom CSS -->
-<link href="{{ $freelancer.Permalink }}" rel="stylesheet" integrity="{{ $freelancer.Data.Integrity }}">
+<link href="{{ $freelancer.Permalink }}" rel="stylesheet">
 
 <!-- Custom CSS from Params (Minified) -->
 {{ range .Site.Params.custom_css }}
     {{ $customCSS := resources.Get . | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $customCSS.Permalink }}" integrity="{{ $customCSS.Data.Integrity }}">
+    <link rel="stylesheet" href="{{ $customCSS.Permalink }}">
 {{ end }}
 
 {{ "<!-- Custom Fonts -->" | safeHTML }}
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 

@@ -1,34 +1,35 @@
 {{ "<!-- jQuery -->" | safeHTML }}
 {{ $jquery := resources.Get "js/jquery-1.11.js" | minify | fingerprint }}
-<script src="{{ $jquery.Permalink }}" integrity="{{ $jquery.Data.Integrity }}"></script>
+<script src="{{ $jquery.Permalink }}" defer></script>
 
 {{ "<!-- Bootstrap Core JavaScript -->" | safeHTML }}
 {{ $bootstrap := resources.Get "js/bootstrap.js" | minify | fingerprint }}
-<script src="{{ $bootstrap.Permalink }}" integrity="{{ $bootstrap.Data.Integrity }}"></script>
+<script src="{{ $bootstrap.Permalink }}" defer></script>
 
 {{ "<!-- Plugin JavaScript -->" | safeHTML }}
 {{ $jqueryEasing := resources.Get "js/jquery.easing.min.js" | minify | fingerprint }}
-<script src="{{ $jqueryEasing.Permalink }}" integrity="{{ $jqueryEasing.Data.Integrity }}"></script>
+<script src="{{ $jqueryEasing.Permalink }}" defer></script>
 
 {{ $classie := resources.Get "js/classie.js" | minify | fingerprint }}
-<script src="{{ $classie.Permalink }}" integrity="{{ $classie.Data.Integrity }}"></script>
+<script src="{{ $classie.Permalink }}" defer></script>
+
 <!-- <script src="{{ .Site.BaseURL }}js/cbpAnimatedHeader.js"></script> -->
 
 {{ "<!-- Contact Form JavaScript -->" | safeHTML }}
 {{ $jqBootstrapValidation := resources.Get "js/jqBootstrapValidation.js" | minify | fingerprint }}
-<script src="{{ $jqBootstrapValidation.Permalink }}" integrity="{{ $jqBootstrapValidation.Data.Integrity }}"></script>
+<script src="{{ $jqBootstrapValidation.Permalink }}" defer></script>
 
 {{ $contactMe := resources.Get "js/contact_me.js" | minify | fingerprint }}
-<script src="{{ $contactMe.Permalink }}" integrity="{{ $contactMe.Data.Integrity }}"></script>
+<script src="{{ $contactMe.Permalink }}" defer></script>
 
 {{ "<!-- Custom Theme JavaScript -->" | safeHTML }}
 {{ $freelancer := resources.Get "js/freelancer.js" | minify | fingerprint }}
-<script src="{{ $freelancer.Permalink }}" integrity="{{ $freelancer.Data.Integrity }}"></script>
+<script src="{{ $freelancer.Permalink }}" defer></script>
 
 {{ "<!-- Custom JavaScript files -->" | safeHTML }}
 {{ range .Site.Params.custom_js }}
     {{ $customJS := resources.Get . | minify | fingerprint }}
-    <script src="{{ $customJS.Permalink }}" integrity="{{ $customJS.Data.Integrity }}"></script>
+    <script src="{{ $customJS.Permalink }}" defer></script>
 {{ end }}
 
 <script>
