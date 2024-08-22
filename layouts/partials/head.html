@@ -5,16 +5,21 @@
 <meta name="author" content="{{ with .Site.Params.name }}{{ . }}{{ end }}">
 {{ hugo.Generator }}
 <title>{{ .Site.Title }}</title>
+
 {{ "<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->" | safeHTML }}
 
-<!-- Minified Bootstrap CSS -->
+<!-- Get CSS Resources -->
 {{ $bootstrap := resources.Get "css/bootstrap.min.css" | minify | fingerprint }}
+{{ $freelancer := resources.Get "css/freelancer.css" | minify | fingerprint }}
+
+<!-- Preload CSS -->
+<link rel="preload" href="{{ $bootstrap.Permalink }}" as="style">
+<link rel="preload" href="{{ $freelancer.Permalink }}" as="style">
+
+<!-- Minified Bootstrap CSS -->
 <link href="{{ $bootstrap.Permalink }}" rel="stylesheet" integrity="{{ $bootstrap.Data.Integrity }}">
 
-{{ "<!-- Custom CSS -->" | safeHTML }}
-
 <!-- Minified Custom CSS -->
-{{ $freelancer := resources.Get "css/freelancer.css" | minify | fingerprint }}
 <link href="{{ $freelancer.Permalink }}" rel="stylesheet" integrity="{{ $freelancer.Data.Integrity }}">
 
 <!-- Custom CSS from Params (Minified) -->
