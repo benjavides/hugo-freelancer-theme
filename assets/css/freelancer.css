@@ -52,11 +52,13 @@ a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social
     font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
     background-color: var(--color-main);
+    overflow: hidden;
+    transition: none;
 }
 
-.navbar a:focus {
+/* .navbar a:focus {
     outline: 0;
-}
+} */
 
 .navbar .navbar-nav {
     letter-spacing: 1px;
@@ -573,12 +575,12 @@ section.success a.active {
 @media(min-width: 768px) {
     .navbar-default {
         padding: 70px 0;
-        transition: padding .3s;
+        /* transition: padding .3s; */
     }
     
-    .navbar-default .navbar-brand {
+    /* .navbar-default .navbar-brand {
         transition: all .3s;
-    }
+    } */
     
     footer .footer-above {
         padding-top: 50px;
