@@ -6,6 +6,10 @@
 {{ hugo.Generator }}
 <title>{{ .Site.Title }}</title>
 
+<!-- Preconnect to important resources -->
+<link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
 {{ "<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->" | safeHTML }}
 
 <!-- Get CSS Resources -->
@@ -17,27 +21,24 @@
 <link rel="preload" href="{{ $freelancer.Permalink }}" as="style">
 
 <!-- Minified Bootstrap CSS -->
-<link href="{{ $bootstrap.Permalink }}" rel="stylesheet">
+<link href="{{ $bootstrap.Permalink }}" rel="stylesheet" media="all">
 
 <!-- Minified Custom CSS -->
-<link href="{{ $freelancer.Permalink }}" rel="stylesheet">
+<link href="{{ $freelancer.Permalink }}" rel="stylesheet" media="all">
 
 <!-- Custom CSS from Params (Minified) -->
 {{ range .Site.Params.custom_css }}
     {{ $customCSS := resources.Get . | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $customCSS.Permalink }}">
+    <link rel="stylesheet" href="{{ $customCSS.Permalink }}" media="all">
 {{ end }}
 
-{{ "<!-- Custom Fonts -->" | safeHTML }}
+<!-- Custom Fonts -->
 <link rel="preload" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" as="style" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-{{ "<!-- Custom Fonts -->" | safeHTML }}
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" type="text/css">
-
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet" type="text/css">
-
 
 {{ "<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->" | safeHTML }}
 {{ "<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->" | safeHTML }}
