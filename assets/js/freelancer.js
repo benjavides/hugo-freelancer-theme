@@ -6,6 +6,14 @@
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
+    function smoothScrollTo(target, offset = 0) {
+        if ($(target).length) {
+            $('html, body').stop().animate({
+                scrollTop: $(target).offset().top - offset
+            }, 1500, 'easeInOutExpo');
+        }
+    }
+
     $('.page-scroll a').bind('click', function(event) {
         var $anchor = $(this);
         var href = $anchor.attr('href');
@@ -17,11 +25,16 @@ $(function() {
         
         if (isRootPage) {
             if (hash) {
-                // If the hash exists, prevent default and scroll smoothly
-                $('html, body').stop().animate({
-                    scrollTop: $('#' + hash).offset().top
-                }, 1500, 'easeInOutExpo');
                 event.preventDefault();
+
+                // Determine if the link is in a collapsible menu
+                var isInCollapsibleMenu = $(this).closest('.navbar-collapse').length > 0;
+
+                // Set an appropriate offset if the link is in a collapsible menu
+                var offset = isInCollapsibleMenu ? $('.navbar-collapse').outerHeight() : 0;
+
+                // Trigger smooth scroll with optional offset
+                smoothScrollTo('#' + hash, offset);
             }
         } else {
             // If not on the root page, navigate to the target href
