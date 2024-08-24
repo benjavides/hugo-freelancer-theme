@@ -145,6 +145,10 @@ a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social
     box-sizing: border-box; /* Include padding within the width */
 }
 
+.dropdown-menu>li>a{
+    line-height: 0.9;
+}
+
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li>a:focus {
     text-decoration: none;
@@ -392,6 +396,14 @@ form .row:first-child .floating-label-form-group {
     bottom: 2%;
     width: 50px;
     height: 50px;
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.scroll-top.visible {
+    opacity: 1; /* Visible state */
+    pointer-events: auto; /* Enable interaction when visible */
 }
 
 .scroll-top .btn {
@@ -399,18 +411,28 @@ form .row:first-child .floating-label-form-group {
     height: 50px;
     border-radius: 100%;
     font-size: 20px;
-    line-height: 28px;
+    line-height: 40px; /* Center the icon */
+    text-align: center;
+    padding: 0;
 }
 
 .scroll-top .btn:focus {
     outline: 0;
 }
 
+.scroll-top .btn i {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    line-height: normal;
+}
+
 .scroll-top .btn-primary{
-    background-color: var(--color-links) ;
+    background-color: var(--color-links);
     border-color: var(--color-links);
     color: var(--color-quarter);
 }
+
 
 /* Portfolio Modal */
 .portfolio-modal .modal-content {
@@ -533,6 +555,7 @@ hr.star-primary:after {
 .project-container {
     min-height: 400px;
     padding: 50px 0;
+    overflow-x: hidden;
 }
 
 .project-content img,

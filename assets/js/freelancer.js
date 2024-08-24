@@ -30,7 +30,6 @@ $(function() {
     });
 });
 
-
 // Floating label headings for the contact form
 $(function() {
     $("body").on("input propertychange", ".floating-label-form-group", function(e) {
@@ -52,7 +51,6 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
-
 /** 
  * Open all external links in a new window
  */
@@ -62,4 +60,18 @@ jQuery(document).ready(function ($) {
         .not('[href*="' + window.location.host + '"]')
         .attr('rel', 'noopener noreferrer')
         .attr('target', '_blank');
+});
+
+/**
+ * Show/Hide Scroll to Top Button Based on Scroll Position
+ */
+$(document).on('scroll', function() {
+    var scrollTopButton = $('.scroll-top');
+    var scrollThreshold = $(window).height(); // One screen height
+
+    if ($(window).scrollTop() >= scrollThreshold) {
+        scrollTopButton.addClass('visible'); // Show button
+    } else {
+        scrollTopButton.removeClass('visible'); // Hide button
+    }
 });
