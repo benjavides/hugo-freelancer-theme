@@ -656,6 +656,10 @@ section.success a.active {
         padding: 10px 15px; /* Adjust padding for better spacing */
     }
 
+    .project-container {
+        padding: 0;
+    }
+
     section {
         padding: 30px 0;
     }
