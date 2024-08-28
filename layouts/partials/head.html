@@ -11,18 +11,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 
 <!-- Get CSS Resources -->
-{{ $bootstrap := resources.Get "css/bootstrap.min.css" | minify | fingerprint }}
-{{ $freelancer := resources.Get "css/freelancer.css" | minify | fingerprint }}
+{{ $css := slice }}
+{{ $css = $css | append (resources.Get "css/bootstrap.min.css") }}
+{{ $css = $css | append (resources.Get "css/freelancer.css") }}
+{{ $combined := $css | resources.Concat "css/combined.css" | minify | fingerprint }}
 
 <!-- Preload CSS -->
-<link rel="preload" href="{{ $bootstrap.Permalink }}" as="style">
-<link rel="preload" href="{{ $freelancer.Permalink }}" as="style">
+<link rel="preload" href="{{ $combined.Permalink }}" as="style">
 
-<!-- Minified Bootstrap CSS -->
-<link href="{{ $bootstrap.Permalink }}" rel="stylesheet" media="all">
+<!-- Minified CSS styles -->
+<link href="{{ $combined.Permalink }}" rel="stylesheet" media="all">
 
-<!-- Minified Custom CSS -->
-<link href="{{ $freelancer.Permalink }}" rel="stylesheet" media="all">
 
 <!-- Custom CSS from Params (Minified) -->
 {{ range .Site.Params.custom_css }}
