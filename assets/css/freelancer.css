@@ -56,10 +56,6 @@ a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social
     transition: none;
 }
 
-/* .navbar a:focus {
-    outline: 0;
-} */
-
 .navbar .navbar-nav {
     letter-spacing: 1px;
 }
@@ -81,17 +77,38 @@ a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social
     background-color: #1a242f;
 }
 
-.navbar-default .navbar-toggle{
+/* Navbar Toggle Button - Default Collapsed State */
+.navbar-default .navbar-toggle {
     border-color: var(--color-links);
+    background-color: transparent; /* Transparent background when collapsed */
 }
 
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus-within,
-.navbar-default .navbar-toggle:focus {
-    border-color: var(--color-links);
-    background-color: var(--color-links);
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: var(--color-links); /* Dark lines when collapsed */
 }
 
+/* Keep Transparent Background on Hover or Focus in Collapsed State */
+.navbar-default .navbar-toggle.collapsed:hover,
+.navbar-default .navbar-toggle.collapsed:focus,
+.navbar-default .navbar-toggle.collapsed:active {
+    background-color: transparent; /* Keep transparent background when collapsed */
+    border-color: var(--color-links); /* Maintain border color */
+}
+
+.navbar-default .navbar-toggle.collapsed:hover .icon-bar,
+.navbar-default .navbar-toggle.collapsed:focus .icon-bar,
+.navbar-default .navbar-toggle.collapsed:active .icon-bar {
+    background-color: var(--color-links); /* Keep dark lines when collapsed */
+}
+
+/* Expanded State - Only applies when the menu is deployed */
+.navbar-default .navbar-toggle:not(.collapsed) {
+    background-color: var(--color-links); /* Dark background when expanded */
+}
+
+.navbar-default .navbar-toggle:not(.collapsed) .icon-bar {
+    background-color: #fff; /* White lines when expanded */
+}
 
 /* Navbar Header */
 .navbar-brand {
@@ -144,6 +161,12 @@ a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social
     width: 100%; /* Ensure links take full width of the dropdown */
     box-sizing: border-box; /* Include padding within the width */
 }
+
+
+
+
+
+
 
 .dropdown-menu>li>a{
     line-height: 0.9;
