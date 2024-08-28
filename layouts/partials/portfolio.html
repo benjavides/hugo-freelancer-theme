@@ -8,7 +8,9 @@
             </div>
         </div>
         <div class="row">
-            {{ $paginator := .Paginate (where .Site.RegularPages "Section" "projects") 9 }}
+            {{ $sortedPages := (where .Site.RegularPages "Section" "projects").ByParam "modalID" }}
+            {{ $sortedPages := $sortedPages.Reverse }}
+            {{ $paginator := .Paginate $sortedPages 9 }}
             {{ range $paginator.Pages }}
             <div class="col-sm-4 portfolio-item">
                 <a href="{{ .Permalink }}" class="portfolio-link" data-toggle="modal">
@@ -20,7 +22,6 @@
                     {{ $image := resources.Get (printf "/img/portfolio/%s" .Params.img) }}
                     {{ $image := $image.Resize "400x289 webp" }}
                     <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Title }}" class="img-responsive">
-                    <!-- <img src="/img/portfolio/{{ .Params.img }}" class="img-responsive" alt="{{ .Title }}"> -->
                 </a>
                 <h4 class="text-center">{{ .Title }}</h4>
             </div>
