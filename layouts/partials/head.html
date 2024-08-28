@@ -10,8 +10,6 @@
 <link rel="preconnect" href="https://stackpath.bootstrapcdn.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 
-{{ "<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->" | safeHTML }}
-
 <!-- Get CSS Resources -->
 {{ $bootstrap := resources.Get "css/bootstrap.min.css" | minify | fingerprint }}
 {{ $freelancer := resources.Get "css/freelancer.css" | minify | fingerprint }}
