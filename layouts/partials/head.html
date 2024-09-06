@@ -16,11 +16,21 @@
 {{ $css = $css | append (resources.Get "css/freelancer.css") }}
 {{ $combined := $css | resources.Concat "css/combined.css" | minify | fingerprint }}
 
+
+
 <!-- Preload CSS -->
 <link rel="preload" href="{{ $combined.Permalink }}" as="style">
 
 <!-- Minified CSS styles -->
-<link href="{{ $combined.Permalink }}" rel="stylesheet" media="all">
+<link href="{{ $combined.Permalink }}" rel="stylesheet" media="all" onload="document.body.style.visibility='visible';document.body.style.opacity='1';">
+<noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
 
 
 <!-- Custom CSS from Params (Minified) -->
