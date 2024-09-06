@@ -12,7 +12,7 @@
 
 <!-- Get CSS Resources -->
 {{ $css := slice }}
-{{ $css = $css | append (resources.Get "css/bootstrap.min.css") }}
+{{ $css = $css | append (resources.Get "css/bootstrap.css") }}
 {{ $css = $css | append (resources.Get "css/freelancer.css") }}
 {{ $combined := $css | resources.Concat "css/combined.css" | minify | fingerprint }}
 

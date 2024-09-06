@@ -66,6 +66,16 @@ a:hover {
     outline: 0
 }
 
+.project-content a {
+    color: rgb(36, 42, 48); /* Your yellow accent color */
+    font-weight: bold; /* Optionally increase font weight for better readability */
+}
+
+.project-content a:hover {
+    color: #FFC107; /* Slightly darker yellow on hover */
+    text-decoration: underline;
+}
+
 abbr[title] {
     border-bottom: 1px dotted
 }
@@ -2456,6 +2466,13 @@ pre code {
     }
     .col-sm-offset-0 {
         margin-left: 0%
+    }
+}
+
+/* This fixes error with grid */
+@media (min-width: 768px) and (max-width: 991px) {
+    .col-sm-4:nth-child(3n+1) {
+        clear: left;
     }
 }
 

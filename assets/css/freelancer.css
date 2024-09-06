@@ -42,9 +42,9 @@ a, a:hover, a:focus, a:active, a.active {
 }
 
 /* External Links */
-a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social):not(.navbar-brand) {
-    color: var(--color-main);
-}
+/* a[href*="//"]:not([href*="benjavides"]):not([href*="localhost"]):not(.btn-social):not(.navbar-brand) {
+    color: var(--color-links);
+} */
 
 /* Navbar */
 .navbar {

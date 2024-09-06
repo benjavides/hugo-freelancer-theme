@@ -3,9 +3,9 @@
     <div class="container project-container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <a href="{{ .Site.BaseURL }}{{ .Site.Language.Lang }}" class="btn btn-default">
+                <a href="{{ .Site.BaseURL }}{{ .Site.Language.Lang }}" class="btn btn-default" aria-label="Back to Homepage">
                     <i class="fa fa-arrow-left"></i>
-                </a>
+                </a>                
                 <div class="modal-body">
                     {{ with .Params.fullTitle}}
                         <h2 class="project-title text-center">{{humanize .}}</h2>
@@ -19,17 +19,18 @@
                         </li>
                         {{ if not (eq .Params.client "") }}
                         <li>{{ with $.Site.Params.portfolio.modal.client }}{{.}}{{ end }}:
-                            <strong><a href="{{ .Params.clientLink }}" target="_blank">{{ .Params.client }}</a></strong>
+                            <strong><a href="{{ .Params.clientLink }}" target="_blank" aria-label="Client page link">{{ .Params.client }}</a></strong>
                         </li>
                         {{ end }}
                         <li>{{ with $.Site.Language.Params.portfolio.modal.category }}{{ . }}{{ end }}:
                             {{ $base := .Site.BaseURL }}
                             {{ $lang := .Site.Language.Lang }}
                             {{ range $number, $name := .Params.categories }}
-                                <strong><a href="{{ $base }}{{ $lang }}/categories/{{ $name | urlize | lower }}">{{ humanize $name }}</a></strong>
+                                <strong><a href="{{ $base }}{{ $lang }}/categories/{{ $name | urlize | lower }}" aria-label="category {{$name}}">{{ humanize $name }}</a></strong>
                             {{ end }}
                         </li>
-                        <br>
+                    </ul>
+                    <ul class="list-inline item-details">
                         <li>{{ with $.Site.Language.Params.portfolio.modal.tags }}{{.}}{{ end }}:
                             {{ range $number, $name := .Params.tags }}
                                 <a href="{{ $base }}{{ $lang }}/tags/{{ $name | urlize | lower }}">#{{ $name }}</a>
