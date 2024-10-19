@@ -17,10 +17,10 @@
 {{ $combined := $css | resources.Concat "css/combined.css" | minify | fingerprint }}
 
 <!-- Preload CSS -->
-<link rel="preload" href="{{ $combined.Permalink }}" as="style">
+<!-- <link rel="preload" href="{{ $combined.Permalink }}" as="style"> -->
 
 <!-- Minified CSS styles -->
-<link href="{{ $combined.Permalink }}" rel="stylesheet" media="all">
+<link rel="stylesheet" href="{{ $combined.Permalink }}" media="all">
 
 <!-- Custom CSS from Params (Minified) -->
 {{ range .Site.Params.custom_css }}
@@ -39,7 +39,7 @@
 {{ "<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->" | safeHTML }}
 {{ "<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->" | safeHTML }}
 {{ "<!--[if lt IE 9]>" | safeHTML }}
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" defer></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" defer></script>
 {{ "<![endif]-->" | safeHTML }}
 {{ partial "head-imgs-css.html" . }}
