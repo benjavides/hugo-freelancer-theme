@@ -1,5 +1,5 @@
 {{/* init vars */}}
-{{- $respSizes := slice "320" "640" "960" "1280" "1600" "1920" -}}
+{{- $respSizes := slice "320" "640" "1280" -}}
 {{- $src := .Get "src" -}}
 {{- $alt := .Get "alt" -}}
 
@@ -13,51 +13,76 @@
 {{- $imgBd5 := md5 $src -}}
 {{- $divClass := "relative" -}}
 {{- if not $phn -}}
-	{{- $divClass = print $divClass " bigImgDiv" -}}
-	{{- if $rounds -}}
-		{{- $divClass = print $divClass " rounded-bkgd" -}}
-	{{- end }}
-	{{- $divClass = print $divClass " imgB-" $imgBd5 "-" $holder -}}
+    {{- $divClass = print $divClass " bigImgDiv" -}}
+    {{- if $rounds -}}
+        {{- $divClass = print $divClass " rounded-bkgd" -}}
+    {{- end }}
+    {{- $divClass = print $divClass " imgB-" $imgBd5 "-" $holder -}}
 {{- else -}}
-	{{- $divClass = print $divClass " bg-center" -}}
+    {{- $divClass = print $divClass " bg-center" -}}
 {{- end -}}
 {{- $imgClass := "w-full animate-fade shadow" -}}
 {{- if $phn -}}
-	{{- $imgClass = "img-phn ctrImg animate-fade shadow" -}}
+    {{- $imgClass = "img-phn ctrImg animate-fade shadow" -}}
 {{- end -}}
 {{- $dataSzes := "(min-width: 1024px) 100vw, 50vw" -}}
 
 {{- $image := resources.Get $src -}}
 {{- if $image -}}
-	{{- $imgRsc := $image -}}
-	{{- if eq (lower $imgRsc.MediaType.SubType) "gif" -}}
-		<!-- Skip all processing for GIFs and use the original image -->
-		<img class="{{ $imgClass }}" src="{{ $imgRsc.RelPermalink }}" width="{{ $imgRsc.Width }}" height="{{ $imgRsc.Height }}" alt="{{ $alt }}" title="{{ $alt }}" loading="lazy" data-pagefind-ignore />
-	{{- else -}}
-		<!-- Process non-GIF images -->
-		{{- $actualImg := $imgRsc.Process (print "resize 640x jpg " $filter) -}}
-		<div class="{{ $divClass }}" data-pagefind-ignore>
-			<picture data-pagefind-ignore>
-				<source type="image/webp" srcset="
-				{{- with $respSizes -}}
-					{{- range $i, $e := . -}}
-						{{- if ge $imgRsc.Width . -}}
-							{{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x webp " $hint " " $filter) ).RelPermalink }} {{ . }}w
-						{{- end -}}
-					{{- end -}}
-				{{- end -}}" sizes="{{ $dataSzes }}" />
-				<source type="image/jpeg" srcset="
-				{{- with $respSizes -}}
-					{{- range $i, $e := . -}}
-						{{- if ge $imgRsc.Width . -}}
-							{{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x jpg " $filter) ).RelPermalink }} {{ . }}w
-						{{- end -}}
-					{{- end -}}
-				{{- end -}}" sizes="{{ $dataSzes }}" />
-				<img class="h-auto{{ if eq $simple false }} {{ $imgClass }}{{ end }}" src="{{ $actualImg.RelPermalink }}" width="{{ $imgRsc.Width }}" height="{{ $imgRsc.Height }}" alt="{{ $alt }}" title="{{ $alt }}" loading="lazy" data-pagefind-ignore />
-			</picture>
-		</div>
-	{{- end -}}
+    {{- $imgRsc := $image -}}
+
+    {{- /* Default to using the original image */ -}}
+    {{- $actualImg := $imgRsc -}}
+
+    {{- if eq (lower $imgRsc.MediaType.SubType) "gif" -}}
+        <!-- Skip all processing for GIFs and use the original image -->
+        <img class="{{ $imgClass }}" src="{{ $imgRsc.RelPermalink }}" width="{{ $imgRsc.Width }}" height="{{ $imgRsc.Height }}" alt="{{ $alt }}" title="{{ $alt }}" loading="lazy" data-pagefind-ignore />
+    {{- else -}}
+        <!-- Process non-GIF images -->
+        {{- if ge $imgRsc.Width 640 }}
+            {{- /* Check if the original image width is greater or equal to 640 pixels */ -}}
+
+            {{- /* Create a unique cache key for this image based on its hash (imgBd5) */ -}}
+            {{- $cacheKey := print "imgResized640-" $imgBd5 -}}
+
+            {{- /* Attempt to retrieve the processed image from Hugo's Scratch cache */ -}}
+            {{- $cachedImg := $.Scratch.Get $cacheKey -}}
+
+            {{- if not $cachedImg }}
+                {{- /* If the image is not yet cached, process (resize) it to 640px wide as jpg */ -}}
+                {{- $cachedImg = $imgRsc.Process (print "resize 640x jpg " $filter) -}}
+
+                {{- /* Store the processed image in Scratch for future use with the unique cache key */ -}}
+                {{- $.Scratch.Set $cacheKey $cachedImg -}}
+            {{- end }}
+
+            {{- /* Assign the processed image (either retrieved from cache or newly processed) to $actualImg */ -}}
+            {{- $actualImg = $cachedImg -}}
+        {{- end }}
+
+        <!-- Picture element for responsive images -->
+        <div class="{{ $divClass }}" data-pagefind-ignore>
+            <picture data-pagefind-ignore>
+                <source type="image/webp" srcset="
+                {{- with $respSizes -}}
+                    {{- range $i, $e := . -}}
+                        {{- if ge $imgRsc.Width . -}}
+                            {{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x webp " $hint " " $filter) ).RelPermalink }} {{ . }}w
+                        {{- end -}}
+                    {{- end -}}
+                {{- end -}}" sizes="{{ $dataSzes }}" />
+                <source type="image/jpeg" srcset="
+                {{- with $respSizes -}}
+                    {{- range $i, $e := . -}}
+                        {{- if ge $imgRsc.Width . -}}
+                            {{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x jpg " $filter) ).RelPermalink }} {{ . }}w
+                        {{- end -}}
+                    {{- end -}}
+                {{- end -}}" sizes="{{ $dataSzes }}" />
+                <img class="h-auto{{ if eq $simple false }} {{ $imgClass }}{{ end }}" src="{{ $actualImg.RelPermalink }}" width="{{ $imgRsc.Width }}" height="{{ $imgRsc.Height }}" alt="{{ $alt }}" title="{{ $alt }}" loading="lazy" data-pagefind-ignore />
+            </picture>
+        </div>
+    {{- end }}
 {{- else -}}
-	<p class="ctr legal"><em>Image unavailable.</em></p>
+    <p class="ctr legal"><em>Image unavailable.</em></p>
 {{- end }}
