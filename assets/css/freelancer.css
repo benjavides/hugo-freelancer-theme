@@ -592,6 +592,28 @@ hr.star-primary:after {
     margin-bottom: 10px;
 }
 
+/* More space after videos/iframes so text below doesn't feel cramped */
+.project-content > div:has(iframe) {
+    margin-bottom: 3.5rem;
+}
+.project-content iframe,
+.project-content .embed-responsive {
+    margin-bottom: 3.5rem;
+}
+
+/* List typography in project content: match body/paragraph font */
+.project-content ul,
+.project-content ol,
+.project-content li {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.project-content li {
+    margin-bottom: 0.5em;
+}
+
 /* Section Styles */
 section {
     padding: 100px 0;

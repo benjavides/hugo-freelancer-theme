@@ -588,6 +588,30 @@ hr {
       margin-right: auto;
       max-width: 100%;
       height: auto;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    /* More space after videos/iframes */
+    > div:has(iframe) {
+      margin-bottom: 3.5rem;
+    }
+    iframe,
+    .embed-responsive {
+      margin-bottom: 3.5rem;
+    }
+
+    /* List typography: match body/paragraph font */
+    ul,
+    ol,
+    li {
+      font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    li {
+      margin-bottom: 0.5em;
     }
   }
 }
