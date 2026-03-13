@@ -10,6 +10,12 @@
 {{- $simple := default false (.Get "simple") -}}
 {{- $rounds := default false (.Get "rounds") -}}
 
+{{- /* Optional per-image quality override, e.g. quality="q95" */ -}}
+{{- $quality := "" -}}
+{{- with .Get "quality" -}}
+    {{- $quality = print . " " -}}
+{{- end -}}
+
 {{- $imgBd5 := md5 $src -}}
 {{- $divClass := "relative" -}}
 {{- if not $phn -}}
@@ -49,8 +55,8 @@
             {{- $cachedImg := $.Scratch.Get $cacheKey -}}
 
             {{- if not $cachedImg }}
-                {{- /* If the image is not yet cached, process (resize) it to 640px wide as jpg */ -}}
-                {{- $cachedImg = $imgRsc.Process (print "resize 640x jpg " $filter) -}}
+                {{- /* If the image is not yet cached, process (resize) it to 640px wide as jpg, with optional quality override */ -}}
+                {{- $cachedImg = $imgRsc.Process (print "resize 640x " $quality "jpg " $filter) -}}
 
                 {{- /* Store the processed image in Scratch for future use with the unique cache key */ -}}
                 {{- $.Scratch.Set $cacheKey $cachedImg -}}
@@ -67,7 +73,7 @@
                 {{- with $respSizes -}}
                     {{- range $i, $e := . -}}
                         {{- if ge $imgRsc.Width . -}}
-                            {{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x webp " $hint " " $filter) ).RelPermalink }} {{ . }}w
+                            {{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x " $quality "webp " $hint " " $filter) ).RelPermalink }} {{ . }}w
                         {{- end -}}
                     {{- end -}}
                 {{- end -}}" sizes="{{ $dataSzes }}" />
@@ -75,7 +81,7 @@
                 {{- with $respSizes -}}
                     {{- range $i, $e := . -}}
                         {{- if ge $imgRsc.Width . -}}
-                            {{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x jpg " $filter) ).RelPermalink }} {{ . }}w
+                            {{- if $i }}, {{ end -}}{{- ($imgRsc.Process (print "resize " . "x " $quality "jpg " $filter) ).RelPermalink }} {{ . }}w
                         {{- end -}}
                     {{- end -}}
                 {{- end -}}" sizes="{{ $dataSzes }}" />
